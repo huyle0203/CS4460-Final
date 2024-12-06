@@ -124,7 +124,19 @@ const TreeMapChart = () => {
     }
   }, [])
 
-  return <div ref={chartRef} className="w-full h-full" />
+  return (
+    <div className="flex flex-col items-center justify-center gap-8 max-w-6xl mx-auto p-8">
+      <div ref={chartRef} className="w-full h-[600px]" />
+      <div className="bg-black bg-opacity-60 p-6 rounded-lg max-w-2xl">
+        <p className="text-white text-xl text-center">
+          "The internet was once dominated by English due to historical and technological factors. This has shifted as other languages have gained prominence."
+        </p>
+        <p className="text-white text-sm mt-4 text-center italic">
+          Figure 1: Share of Most Common Languages Spoken on the Web
+        </p>
+      </div>
+    </div>
+  )
 }
 
 export default TreeMapChart
