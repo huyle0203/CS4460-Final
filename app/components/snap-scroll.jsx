@@ -4,15 +4,18 @@ import React, { useRef, useEffect } from 'react'
 import { ChevronDown } from 'lucide-react'
 import LanguageChart from './LanguageChart'
 import IntroSlide from './IntroSlide'
+import IntroSlide2 from './IntroSlide2'
 import ClassroomSlide from './ClassroomSlide'
 import TreeMapChart from './TreeMapChart'
 
+
 const slides = [
   { id: 1, content: 'Intro' },
-  { id: 2, content: 'Language Chart' },
-  { id: 3, content: 'Classroom Learning' },
-  { id: 4, content: 'Languages on the Web' },
-  { id: 5, content: 'Slide 5' },
+  { id: 2, content: 'Intro 2' },
+  { id: 3, content: 'Language Chart' },
+  { id: 4, content: 'Classroom Learning' },
+  { id: 5, content: 'Languages on the Web' },
+
 ]
 
 const gradients = [
@@ -63,16 +66,18 @@ export default function SnapScroll() {
           {index === 0 ? (
             <IntroSlide />
           ) : index === 1 ? (
+            <IntroSlide2/>
+          ) : index === 2 ? (
             <div className="w-full h-full flex items-center justify-center">
               <LanguageChart />
             </div>
-          ) : index === 2 ? (
-            <ClassroomSlide />
           ) : index === 3 ? (
+            <ClassroomSlide />
+          ) : index === 4 ? (
             <div className="w-full h-full flex items-center justify-center">
               <TreeMapChart />
             </div>
-          ) : (
+          )  : ( 
             <h2 className="text-4xl font-bold">{slide.content}</h2>
           )}
         </div>
