@@ -4,11 +4,12 @@ import React, { useRef, useEffect } from 'react'
 import { ChevronDown } from 'lucide-react'
 import LanguageChart from './LanguageChart'
 import IntroSlide from './IntroSlide'
+import ClassroomSlide from './ClassroomSlide'
 
 const slides = [
   { id: 1, content: 'Intro' },
   { id: 2, content: 'Language Chart' },
-  { id: 3, content: 'Slide 3' },
+  { id: 3, content: 'Classroom Learning' },
   { id: 4, content: 'Slide 4' },
   { id: 5, content: 'Slide 5' },
 ]
@@ -64,6 +65,8 @@ export default function SnapScroll() {
             <div className="w-full h-full flex items-center justify-center">
               <LanguageChart />
             </div>
+          ) : index === 2 ? (
+            <ClassroomSlide />
           ) : (
             <h2 className="text-4xl font-bold">{slide.content}</h2>
           )}
