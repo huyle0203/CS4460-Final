@@ -5,12 +5,13 @@ import { ChevronDown } from 'lucide-react'
 import LanguageChart from './LanguageChart'
 import IntroSlide from './IntroSlide'
 import ClassroomSlide from './ClassroomSlide'
+import TreeMapChart from './TreeMapChart'
 
 const slides = [
   { id: 1, content: 'Intro' },
   { id: 2, content: 'Language Chart' },
   { id: 3, content: 'Classroom Learning' },
-  { id: 4, content: 'Slide 4' },
+  { id: 4, content: 'Languages on the Web' },
   { id: 5, content: 'Slide 5' },
 ]
 
@@ -67,6 +68,10 @@ export default function SnapScroll() {
             </div>
           ) : index === 2 ? (
             <ClassroomSlide />
+          ) : index === 3 ? (
+            <div className="w-full h-full flex items-center justify-center">
+              <TreeMapChart />
+            </div>
           ) : (
             <h2 className="text-4xl font-bold">{slide.content}</h2>
           )}
