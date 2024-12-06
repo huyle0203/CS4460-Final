@@ -7,6 +7,7 @@ import IntroSlide from './IntroSlide'
 import IntroSlide2 from './IntroSlide2'
 import ClassroomSlide from './ClassroomSlide'
 import TreeMapChart from './TreeMapChart'
+import DuolingoUser from './DuolingoUser'
 
 
 const slides = [
@@ -15,6 +16,8 @@ const slides = [
   { id: 3, content: 'Language Chart' },
   { id: 4, content: 'Classroom Learning' },
   { id: 5, content: 'Languages on the Web' },
+  { id: 6, content: 'Duolingo' },
+  
 
 ]
 
@@ -77,7 +80,15 @@ export default function SnapScroll() {
             <div className="w-full h-full flex items-center justify-center">
               <TreeMapChart />
             </div>
-          )  : ( 
+          ) 
+          
+          : index === 5 ? (
+            <div className="w-full h-full flex items-center justify-center">
+              <DuolingoUser />
+            </div>  
+          ) 
+
+          : ( 
             <h2 className="text-4xl font-bold">{slide.content}</h2>
           )}
         </div>
