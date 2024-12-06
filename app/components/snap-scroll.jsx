@@ -3,10 +3,11 @@
 import React, { useRef, useEffect } from 'react'
 import { ChevronDown } from 'lucide-react'
 import LanguageChart from './LanguageChart'
+import IntroSlide from './IntroSlide'
 
 const slides = [
-  { id: 1, content: 'Language Chart' },
-  { id: 2, content: 'Slide 2' },
+  { id: 1, content: 'Intro' },
+  { id: 2, content: 'Language Chart' },
   { id: 3, content: 'Slide 3' },
   { id: 4, content: 'Slide 4' },
   { id: 5, content: 'Slide 5' },
@@ -55,9 +56,11 @@ export default function SnapScroll() {
       {slides.map((slide, index) => (
         <div 
           key={slide.id} 
-          className={`h-screen flex items-center justify-center snap-start ${gradients[index % gradients.length]} text-white`}
+          className={`h-screen flex items-center justify-center snap-start ${index !== 0 ? gradients[index % gradients.length] : ''} text-white`}
         >
           {index === 0 ? (
+            <IntroSlide />
+          ) : index === 1 ? (
             <div className="w-full h-full flex items-center justify-center">
               <LanguageChart />
             </div>
