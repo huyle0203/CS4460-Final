@@ -3,7 +3,7 @@
 import * as d3 from "d3";
 import "./style2.css";
 
-// Rebuild the tooltip logic slightly for clarity
+// rebuild the tooltip logic bc not work
 function createTooltip() {
     const tooltip = d3.select("body")
         .append("div")
@@ -41,24 +41,16 @@ const appUsageData = [
     {Country: 'Canada', App: 'Rosetta Stone'},
 ];
 
-/**
- * Creates an interactive 3D globe with a choropleth map, tooltips, and dragging functionality.
- *
- * @param {HTMLElement} container - The container element where the globe will be rendered.
- * @param {string} geoDataUrl - URL or path to the GeoJSON file (FeatureCollection).
- * @param {string} dataUrl - URL or path to the CSV data file mapping languages per country.
- */
+
 export function createInteractiveGlobe(container, geoDataUrl, dataUrl) {
-    // Run only in browser
+    // CSR
     if (typeof window === 'undefined') return;
 
     const width = 600;
     const height = 600;
 
-    // Clear previous content
     d3.select(container).selectAll("*").remove();
 
-    // App-specific marker colors
     const appColors = {
         'Duolingo': 'green',
         'Rosetta Stone': 'yellow',
@@ -70,12 +62,12 @@ export function createInteractiveGlobe(container, geoDataUrl, dataUrl) {
         .append("svg")
         .attr("width", width)
         .attr("height", height)
-        .style("cursor", "grab"); // Visual hint that it can be dragged
+        .style("cursor", "grab");
 
     // Add the title here
     svg.append("text")
         .attr("x", width / 2)
-        .attr("y", 40)
+        .attr("y", 20)
         .attr("text-anchor", "middle")
         .attr("font-size", "12px")
         .attr("font-weight", "bold")
@@ -85,7 +77,7 @@ export function createInteractiveGlobe(container, geoDataUrl, dataUrl) {
 
     // Projection and path
     const projection = d3.geoOrthographic()
-        .scale(250) // Reduce scale from 300 to 250
+        .scale(250) // og 350
         .translate([width / 2, height / 2])
         .rotate([0, 0])
         .clipAngle(90);
@@ -106,7 +98,6 @@ export function createInteractiveGlobe(container, geoDataUrl, dataUrl) {
 
             const countries = geoData.features;
 
-            // Create a map from country name to number of languages
             const languageMap = new Map();
             langData.forEach(d => {
                 if (d.Country && !isNaN(+d.NumberOfLanguages)) {
@@ -114,22 +105,19 @@ export function createInteractiveGlobe(container, geoDataUrl, dataUrl) {
                 }
             });
 
-            // We use a fixed domain max for color scale (e.g., top ~10 languages)
             const maxLanguages = 10;
             const colorScale = d3.scaleSequential(d3.interpolateBlues)
                 .domain([1, maxLanguages]);
 
-            // Tooltip
             const tooltip = createTooltip();
 
-            // Draw sphere (background)
             svg.append("path")
                 .datum({type: "Sphere"})
                 .attr("class", "sphere")
                 .attr("d", path)
                 .attr("fill", "#e6f2ff");
 
-            // Draw graticule for reference
+            // draw graticule for reference
             const graticule = d3.geoGraticule();
             svg.append("path")
                 .datum(graticule())
@@ -138,7 +126,6 @@ export function createInteractiveGlobe(container, geoDataUrl, dataUrl) {
                 .attr("stroke-opacity", 0.5)
                 .attr("d", path);
 
-            // Draw countries
             const countryPaths = svg.selectAll(".country")
                 .data(countries)
                 .enter()
@@ -156,7 +143,7 @@ export function createInteractiveGlobe(container, geoDataUrl, dataUrl) {
                         .attr("stroke-width", 2);
                     const name = d.properties.name;
                     const languages = languageMap.get(name) || "Unknown";
-                    tooltip.show(event, `<strong>${name}</strong>: ${languages} languages`);
+                    tooltip.show(event, `<strong>${name}</strong>: ${languages} languages widely spoken in region`);
                 })
                 .on("mouseout", function () {
                     d3.select(this)
@@ -165,34 +152,27 @@ export function createInteractiveGlobe(container, geoDataUrl, dataUrl) {
                     tooltip.hide();
                 });
 
-            // Add markers for top users of language learning apps
             const markerGroup = svg.append("g").attr("class", "markers");
 
             countries.forEach(countryFeature => {
                 const name = countryFeature.properties.name;
 
-                // Check if the country has any app usage data
                 const countryApps = appUsageData.find(d => d.Country === name);
 
                 if (countryApps) {
-                    // Get the centroid of the country
                     const [lon, lat] = d3.geoCentroid(countryFeature);
 
                     if (lon !== undefined && lat !== undefined) {
                         const coords = projection([lon, lat]);
 
-                        // Ensure the projection is valid
                         if (coords) {
-                            // Count the number of apps based on commas in the `App` field
                             const appCount = countryApps.App.split(',').length;
 
-                            // Determine the marker color based on the number of apps
                             const markerColor =
-                                appCount === 1 ? "#FFA07A" : // Light Orange for 1 item
-                                    appCount === 2 ? "#FF8C00" : // Orange for 2 items
-                                        "#FF4500";  // Dark Orange for 3+ items
+                                appCount === 1 ? "#FFA07A" : // light Orange for 1 item
+                                    appCount === 2 ? "#FF8C00" : // orange for 2 items
+                                        "#FF4500";  // dark Orange for 3+ items
 
-                            // Append a single circle for the country
                             markerGroup.append("circle")
                                 .datum({
                                     Country: name,
@@ -216,9 +196,40 @@ export function createInteractiveGlobe(container, geoDataUrl, dataUrl) {
                 }
             });
 
+            // Add the horizontal legend
+            const legendGroup = svg.append("g")
+                .attr("class", "legend")
+                .attr("transform", `translate(${width - (0.99 * width)}, ${height - 40})`);
+
+// Legend items data
+            const legendData = [
+                { color: "#FF4500", label: "Country is top user of: 3 apps" }, // dark Orange
+                { color: "#FF8C00", label: "Country is top user of: 2 apps" },      // orange
+                { color: "#FFA07A", label: "Country is top user of: 1 app" }  // light Orange
+            ];
+
+            legendData.forEach((item, index) => {
+                const legendItem = legendGroup.append("g")
+                    .attr("class", "legend-item")
+                    .attr("transform", `translate(${index * 210}, 30)`);
+
+                legendItem.append("circle")
+                    .attr("cx", 0)
+                    .attr("cy", 0)
+                    .attr("r", 6)
+                    .attr("fill", item.color);
+
+                legendItem.append("text")
+                    .attr("x", 12)
+                    .attr("y", 4)
+                    .style("font-size", "12px")
+                    .style("fill", "#333")
+                    .text(item.label);
+            });
 
 
-            // Drag to rotate the globe
+
+            // rotate globe
             let rotate0, x0, y0;
             svg.call(d3.drag()
                 .on("start", (event) => {
@@ -236,14 +247,12 @@ export function createInteractiveGlobe(container, geoDataUrl, dataUrl) {
                         rotate0[1] - dy * k
                     ]);
 
-                    // Update all paths after rotation
                     svg.selectAll(".country").attr("d", path);
                     svg.select(".sphere").attr("d", path);
                     svg.selectAll("path:not(.country):not(.sphere)").attr("d", path);
 
-                    // Update markers' positions dynamically during rotation
                     markerGroup.selectAll("circle").each(function(d) {
-                        const coords = projection([d.Lon, d.Lat]); // Use saved lon/lat for each app marker
+                        const coords = projection([d.Lon, d.Lat]);
                         if (coords) {
                             d3.select(this)
                                 .attr("cx", coords[0])

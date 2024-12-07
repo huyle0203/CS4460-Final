@@ -3,18 +3,15 @@ import './d3-tip.js';
 import './style.css';
 
 export function createSideBySideMaps(container, geoDataUrl) {
-    // Load the data and initialize the visualization
     Promise.all([
         d3.csv('state_languages.csv', dataPreprocessor),
         d3.json(geoDataUrl)
     ]).then(function([data, worldData]) {
-        // Data loading successful
         createVisualization(data, worldData);
     }).catch(function(error){
         console.error('Error loading data:', error);
     });
 
-    // Preprocess the cereal data
     function dataPreprocessor(row) {
         var state = row['State'];
         var population = +row['Population'];
@@ -40,13 +37,11 @@ export function createSideBySideMaps(container, geoDataUrl) {
             .style("display", "flex")    // Make container a flex container
             .style("gap", "10px");
 
-        // Set up dimensions and margins
         var scatterWidth = 500;
         var scatterHeight = 500;
         var mapWidth = 700 * 2.5;
         var mapHeight = 500 * 2.5;
 
-        // Set up scales and axes for the scatter plot
         var xAttribute = 'totalSpeakers';
         var yAttribute = 'population';
 
@@ -57,11 +52,9 @@ export function createSideBySideMaps(container, geoDataUrl) {
         var xAxis = d3.axisBottom(xScale).ticks(4);
         var yAxis = d3.axisLeft(yScale).ticks(5);
 
-        // Set up color scale based on percentage
         var colorScale = d3.scaleSequential(d3.interpolateBlues)
             .domain(d3.extent(cereals, d => d.percentage));
 
-        // Create SVGs inside the container
         var scatterSvg = d3.select(container)
             .append('svg')
             .attr('id', 'scatter')
@@ -74,7 +67,25 @@ export function createSideBySideMaps(container, geoDataUrl) {
             .attr('width', 1100)
             .attr('height', 500);
 
-        // Create tooltips
+        scatterSvg.append("text")
+            .attr("x", scatterWidth / 2)
+            .attr("y", 30)
+            .attr("text-anchor", "middle")
+            .attr("font-size", "12px")
+            .attr("font-weight", "bold")
+            .attr("fill", "black")
+            .text("State Population vs # of Foreign Languages Speakers (PL Dist)");
+
+        mapSvg.append("text")
+            .attr("x", mapWidth / 2 / 3)
+            .attr("y", 30)
+            .attr("text-anchor", "middle")
+            .attr("font-size", "12px")
+            .attr("font-weight", "bold")
+            .attr("fill", "black")
+            .text("Percentage of Students in an English as a Second Language Program");
+
+
         var scatterTip = d3.tip()
             .attr('class', 'd3-tip')
             .offset([-12, 0])
@@ -110,14 +121,13 @@ export function createSideBySideMaps(container, geoDataUrl) {
 
         mapSvg.call(mapTip);
 
-        // Map projection and path
         var projection = d3.geoNaturalEarth1()
             .scale(mapWidth / 1.3 / Math.PI)
             .translate([mapWidth / 2, mapHeight / 2]);
 
         var path = d3.geoPath().projection(projection);
 
-        // Initialize the scatter plot
+        // init the scatter plot
         function updateScatterPlot() {
             var validCereals = cereals.filter(d => !isNaN(d[xAttribute]) && !isNaN(d[yAttribute]));
             console.log('Cereals with valid x and y attributes:', validCereals.length);
@@ -125,9 +135,9 @@ export function createSideBySideMaps(container, geoDataUrl) {
             xScale.domain(d3.extent(validCereals, d => d[xAttribute])).nice();
             yScale.domain(d3.extent(validCereals, d => d[yAttribute])).nice();
 
-            scatterSvg.selectAll('*').remove();
+            scatterSvg.selectAll('.circle').remove();
 
-            // Brush for scatter
+            // brush for scatter
             var scatterBrush = d3.brush()
                 .extent([[50, 50], [scatterWidth - 50, scatterHeight - 50]])
                 .on('brush end', brushedScatter);
@@ -136,14 +146,14 @@ export function createSideBySideMaps(container, geoDataUrl) {
                 .attr('class', 'brush')
                 .call(scatterBrush);
 
-            // X-axis
+            // xaxis
             scatterSvg.append('g')
                 .attr('class', 'x axis')
                 .attr('transform', `translate(0, ${scatterHeight - 50})`)
                 .attr('color', 'black')
                 .call(xAxis);
 
-            // X-axis label
+            // xaxis label
             scatterSvg.append('text')
                 .attr('class', 'axis-label')
                 .attr('x', scatterWidth / 2)
@@ -151,14 +161,14 @@ export function createSideBySideMaps(container, geoDataUrl) {
                 .attr('text-anchor', 'middle')
                 .text("Total Foreign Language Speakers (Power Law Dist)");
 
-            // Y-axis
+            // yaxis
             scatterSvg.append('g')
                 .attr('class', 'y axis')
                 .attr('transform', `translate(60, 0)`)
                 .attr('color', 'black')
                 .call(yAxis);
 
-            // Y-axis label
+            // yaxis label
             scatterSvg.append('text')
                 .attr('class', 'axis-label')
                 .attr('transform', 'rotate(-90)')
@@ -167,7 +177,7 @@ export function createSideBySideMaps(container, geoDataUrl) {
                 .attr('text-anchor', 'middle')
                 .text("Population (Power Law Dist)");
 
-            // Circles
+            // circles
             scatterSvg.selectAll('.circle')
                 .data(validCereals)
                 .enter()
@@ -180,7 +190,7 @@ export function createSideBySideMaps(container, geoDataUrl) {
                 .on('mouseover', scatterTip.show)
                 .on('mouseout', scatterTip.hide);
 
-            // Clear brush on click outside selection
+            // clear brush
             scatterSvg.on('click', function(event) {
                 if (event.target.tagName !== 'rect') {
                     scatterSvg.select('.brush').call(scatterBrush.move, null);
@@ -188,11 +198,11 @@ export function createSideBySideMaps(container, geoDataUrl) {
             });
         }
 
-        // Initialize the map
+        // init the map
         function drawMap() {
-            mapSvg.selectAll('*').remove();
+            mapSvg.selectAll('path').remove();
 
-            // Brush for map
+            // brush for map
             var mapBrush = d3.brush()
                 .extent([[0, 0], [mapWidth, mapHeight]])
                 .on('brush end', brushedMap);
@@ -203,7 +213,7 @@ export function createSideBySideMaps(container, geoDataUrl) {
 
             var cerealStates = new Set(cereals.map(d => d.state));
 
-            // Draw the map
+            // draw the map
             mapSvg.selectAll('path')
                 .data(worldData.features)
                 .enter()
@@ -223,7 +233,7 @@ export function createSideBySideMaps(container, geoDataUrl) {
                 })
                 .on('mouseout', mapTip.hide);
 
-            // Clear brush on click outside selection
+            // clear brush
             mapSvg.on('click', function(event) {
                 if (event.target.tagName !== 'rect') {
                     mapSvg.select('.brush').call(mapBrush.move, null);
@@ -231,18 +241,18 @@ export function createSideBySideMaps(container, geoDataUrl) {
             });
         }
 
-        // Brushing functions
+        // brushing functions
         function brushedScatter(event) {
             if (event.selection === null) {
                 scatterSvg.selectAll('.circle')
-                    .style('fill', d => colorScale(d.percentage)) // Reapply original color
-                    .style('fill-opacity', 1); // Reset opacity
+                    .style('fill', d => colorScale(d.percentage))
+                    .style('fill-opacity', 1);
                 mapSvg.selectAll('.state')
                     .style('fill', d => {
                         var stateData = cereals.find(c => c.state === d.properties.name);
-                        return stateData ? colorScale(stateData.percentage) : '#fff'; // Reapply choropleth
+                        return stateData ? colorScale(stateData.percentage) : '#fff';
                     })
-                    .style('fill-opacity', 1); // Reset opacity
+                    .style('fill-opacity', 1);
                 return;
             }
 
@@ -259,36 +269,36 @@ export function createSideBySideMaps(container, geoDataUrl) {
                 .style('fill', d => {
                     var x = xScale(d[xAttribute]);
                     var y = yScale(d[yAttribute]);
-                    return x0 <= x && x <= x1 && y0 <= y && y <= y1 ? colorScale(d.percentage) : '#ccc'; // Preserve color or dim
+                    return x0 <= x && x <= x1 && y0 <= y && y <= y1 ? colorScale(d.percentage) : '#ccc';
                 })
                 .style('fill-opacity', d => {
                     var x = xScale(d[xAttribute]);
                     var y = yScale(d[yAttribute]);
-                    return x0 <= x && x <= x1 && y0 <= y && y <= y1 ? 1 : 0.2; // Adjust opacity
+                    return x0 <= x && x <= x1 && y0 <= y && y <= y1 ? 1 : 0.2;
                 });
 
             mapSvg.selectAll('.state')
                 .style('fill', d => {
                     var stateData = cereals.find(c => c.state === d.properties.name);
                     return selectedStates.has(d.properties.name)
-                        ? colorScale(stateData.percentage) // Preserve choropleth for selected
-                        : '#ccc'; // Dim unselected
+                        ? colorScale(stateData.percentage)
+                        : '#ccc';
                 })
-                .style('fill-opacity', d => selectedStates.has(d.properties.name) ? 1 : 0.2); // Adjust opacity
+                .style('fill-opacity', d => selectedStates.has(d.properties.name) ? 1 : 0.2);
         }
 
 
         function brushedMap(event) {
             if (event.selection === null) {
                 scatterSvg.selectAll('.circle')
-                    .style('fill', d => colorScale(d.percentage)) // Reapply original color
-                    .style('fill-opacity', 1); // Reset opacity
+                    .style('fill', d => colorScale(d.percentage))
+                    .style('fill-opacity', 1);
                 mapSvg.selectAll('.state')
                     .style('fill', d => {
                         var stateData = cereals.find(c => c.state === d.properties.name);
-                        return stateData ? colorScale(stateData.percentage) : '#fff'; // Reapply choropleth
+                        return stateData ? colorScale(stateData.percentage) : '#fff';
                     })
-                    .style('fill-opacity', 1); // Reset opacity
+                    .style('fill-opacity', 1);
                 return;
             }
 
@@ -306,7 +316,7 @@ export function createSideBySideMaps(container, geoDataUrl) {
 
                     if (isSelected && stateData) {
                         selectedStates.add(d.properties.name);
-                        return colorScale(stateData.percentage); // Preserve choropleth for selected
+                        return colorScale(stateData.percentage);
                     }
                     return '#ccc'; // Dim unselected
                 })
@@ -314,19 +324,14 @@ export function createSideBySideMaps(container, geoDataUrl) {
                     var centroid = path.centroid(d);
                     var x = centroid[0];
                     var y = centroid[1];
-                    return selectedStates.has(d.properties.name) ? 1 : 0.2; // Adjust opacity
+                    return selectedStates.has(d.properties.name) ? 1 : 0.2;
                 });
 
             scatterSvg.selectAll('.circle')
-                .style('fill', d => selectedStates.has(d.state) ? colorScale(d.percentage) : '#ccc') // Preserve color or dim
-                .style('fill-opacity', d => selectedStates.has(d.state) ? 1 : 0.2); // Adjust opacity
+                .style('fill', d => selectedStates.has(d.state) ? colorScale(d.percentage) : '#ccc')
+                .style('fill-opacity', d => selectedStates.has(d.state) ? 1 : 0.2);
         }
 
-
-        // Axis selectors
-
-        // Initialize visualization
-        // createAxisSelectors();
         updateScatterPlot();
         drawMap();
     }

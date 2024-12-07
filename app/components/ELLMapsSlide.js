@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useEffect, useRef, useState } from 'react'
-import { createSideBySideMaps } from './D3Maps.js' // Adjust path as needed
+import { createSideBySideMaps } from './D3Maps.js'
 
 
 const ELLMapsSlide = () => {
@@ -10,7 +10,6 @@ const ELLMapsSlide = () => {
 
     useEffect(() => {
         if (containerRef.current && !isLoaded) {
-            // Provide the path to your GeoJSON file
             const geoDataUrl = './us-states.json';
 
             createSideBySideMaps(containerRef.current, geoDataUrl)
@@ -25,9 +24,9 @@ const ELLMapsSlide = () => {
             </div>
             <div className="bg-black bg-opacity-60 p-6 rounded-lg max-w-2xl">
                 <p className="text-white text-xl text-center">
-                    "Brick-and-mortar education is not ineffective. Technology did not 'fix' it.
-                    In fact, in the US, the supply of English Language Learner (ELL) programs
-                    has proportionally kept up with demand."
+                    "Brick-and-mortar education is not ineffective. Technology will not replace it.
+                    In fact, there is a steady correlation between the supply of English Language Learner (ELL) programs
+                    and the demand of foreign language speakers."
                 </p>
                 <p className="text-white text-sm mt-4 text-center italic">
                     Figure 4 and Figure 9: Brushing and Linking by State (Scatter Plot or Choropleth)

@@ -9,7 +9,8 @@ import ClassroomSlide from './ClassroomSlide'
 import TreeMapChart from './TreeMapChart'
 import DuolingoUser from './DuolingoUser'
 import ELLMapsSlide from "./ELLMapsSlide";
-import GlobeSlide from "@/app/components/GlobeSlide";
+import GlobeSlide from "./GlobeSlide";
+import EnglishInternetDecline from "./EnglishInternetDecline";
 
 
 const slides = [
@@ -20,7 +21,8 @@ const slides = [
   { id: 4, content: 'Languages on the Web' },
   { id: 5, content: 'Duolingo' },
   { id: 6, content: 'ELLMapsSlide'},
-  { id: 7, content: 'MultilingualismSlide'}
+  { id: 7, content: 'MultilingualismSlide'},
+  { id: 8, content: 'EnglishWebDecline'}
   
 
 ]
@@ -33,6 +35,7 @@ const gradients = [
   'bg-gradient-to-br from-teal-400 to-blue-500',
   'bg-gradient-to-br from-green-400 to-blue-500',
   'bg-gradient-to-br from-yellow-400 to-red-500',
+  'bg-gradient-to-br from-pink-500 to-orange-400',
 ]
 
 export default function SnapScroll() {
@@ -99,6 +102,10 @@ export default function SnapScroll() {
           ) : index === 7 ? (
             <div className="w-full h-full flex items-center justify-center">
               <GlobeSlide />
+            </div>
+          ) : index === 8 ? (
+            <div className="w-full h-full flex items-center justify-center">
+              <EnglishInternetDecline />
             </div>
           )
 
