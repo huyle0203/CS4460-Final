@@ -20,7 +20,6 @@ const TreeMapChart = () => {
           .attr('width', treeMapWidth + legendWidth)
           .attr('height', height + margin.top)
 
-      // Data for the chart
       const data = {
         name: 'Languages',
         children: [
@@ -71,7 +70,6 @@ const TreeMapChart = () => {
           .size([treeMapWidth, height - margin.top])
           .padding(1)(root)
 
-      // Add title
       svg.append('text')
           .attr('class', 'title')
           .attr('x', (treeMapWidth + legendWidth) / 2)
@@ -83,7 +81,6 @@ const TreeMapChart = () => {
 
       const colorScale = d3.scaleOrdinal(d3.schemeTableau10)
 
-      // Define the tooltip before rectangles and their event handlers
       const tooltip = d3.select(chartRef.current)
           .append('div')
           .style('position', 'absolute')
@@ -95,7 +92,6 @@ const TreeMapChart = () => {
           .style('pointer-events', 'none')
           .style('display', 'none')
 
-// Now define nodes and their event handlers
       const nodes = svg.selectAll('g')
           .data(root.leaves())
           .enter()
@@ -108,6 +104,7 @@ const TreeMapChart = () => {
           .attr('fill', (d, i) => colorScale(i))
           .style('stroke', 'white')
           .style('stroke-width', '1px')
+          /*
           .on('mouseover', (event, d) => {
             tooltip.style('display', 'block')
                 .html(`<strong>${d.data.name}</strong><br>Share: ${d.data.value}%`)
@@ -121,7 +118,8 @@ const TreeMapChart = () => {
             tooltip.style('display', 'none')
           })
 
-      // Add text labels
+           */
+
       nodes.append('text')
           .attr('x', d => (d.x1 - d.x0) / 2)
           .attr('y', d => (d.y1 - d.y0) / 2)
@@ -131,7 +129,6 @@ const TreeMapChart = () => {
           .style('font-size', '10px')
           .style('fill', 'white')
 
-      // Add legend
       const legend = svg.append('g')
           .attr('transform', `translate(${treeMapWidth + 20}, ${margin.top})`)
 
@@ -160,7 +157,7 @@ const TreeMapChart = () => {
 
   return (
       <div className="flex flex-col items-center justify-center gap-8 max-w-6xl mx-auto p-8">
-        {/* Make this container relative so the tooltip is positioned correctly */}
+        {/* render here */}
         <div ref={chartRef} className="relative w-full h-[600px]" />
         <div className="bg-black bg-opacity-60 p-6 rounded-lg max-w-2xl">
           <p className="text-white text-xl text-center">

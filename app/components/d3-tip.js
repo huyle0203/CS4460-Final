@@ -1,7 +1,7 @@
 import * as d3 from 'd3';
 import './style.css';
 
-// d3.tip
+// d3.tip used from lab6 below
 // Copyright (c) 2013 Justin Palmer
 // ES6 / D3 v4 Adaption Copyright (c) 2016 Constantin Gavrilete
 // Removal of ES6 for D3 v4 Adaption Copyright (c) 2016 David Gotz

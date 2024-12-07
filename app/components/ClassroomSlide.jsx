@@ -22,7 +22,6 @@ const ClassroomSlide = () => {
             ]
         };
 
-        // Reduced size by approximately 15%
         const width = 760;  // was 800
         const height = 570; // was 600
         const margin = { top: 40, right: 200, bottom: 10, left: 10 };
@@ -56,9 +55,9 @@ const ClassroomSlide = () => {
 
         treemap(root);
 
-        // Define a custom color palette without orange (#F28E2B)
-        // Original schemeTableau10: ["#4E79A7","#F28E2B","#E15759","#76B7B2","#59A14F","#EDC948","#B07AA1","#FF9DA7","#9C755F","#BAB0AC"]
-        // Removed the orange (#F28E2B) and re-ordered to maintain variety:
+        // custom color palette without orange (#F28E2B) bc the overlays were bad
+        // og schemeTableau10: ["#4E79A7","#F28E2B","#E15759","#76B7B2","#59A14F","#EDC948","#B07AA1","#FF9DA7","#9C755F","#BAB0AC"]
+        // removed the orange (#F28E2B) and re-ordered to maintain variety:
         const customColors = [
             "#4E79A7", // Blue
             "#59A14F", // Green
@@ -85,7 +84,6 @@ const ClassroomSlide = () => {
             .style("display", "none")
             .style("color", "black");
 
-        // Draw rectangles
         svg.selectAll("rect")
             .data(root.leaves())
             .enter()
@@ -111,7 +109,6 @@ const ClassroomSlide = () => {
                 tooltip.style("display", "none");
             });
 
-        // Add text labels
         svg.selectAll("text.label")
             .data(root.leaves())
             .enter()
@@ -124,7 +121,6 @@ const ClassroomSlide = () => {
             .style("pointer-events", "none")
             .style("text-shadow", "1px 1px 2px black");
 
-        // Add numeric labels for English and French
         const numericLabels = [
             { name: "English", value: "1.5 billion" },
             { name: "French", value: "120 million" }
@@ -170,7 +166,7 @@ const ClassroomSlide = () => {
             <div ref={chartRef} className="relative w-full h-[600px]" />
             <div className="bg-black bg-opacity-60 p-6 rounded-lg max-w-2xl">
                 <p className="text-white text-xl text-center">
-                    "In the past, language learning was confined to traditional classrooms. Today, English dominates these settings."
+                    "In the past, language learning was confined to traditional classrooms. Currently, English dominates these traditional settings."
                 </p>
                 <p className="text-white text-sm mt-4 text-center italic">
                     Figure 14: Number of Classroom Learners by Language
