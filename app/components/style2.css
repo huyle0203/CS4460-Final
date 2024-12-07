@@ -1,0 +1,19 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.tooltip {
+    font-size: 14px;
+    line-height: 1.4;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.country {
+    stroke: #000;
+    stroke-width: 0.5;
+    transition: fill 0.2s ease, stroke-width 0.2s ease;
+}
+
+.country:hover {
+    cursor: pointer;
+}
