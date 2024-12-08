@@ -8,15 +8,21 @@ import IntroSlide2 from './IntroSlide2'
 import ClassroomSlide from './ClassroomSlide'
 import TreeMapChart from './TreeMapChart'
 import DuolingoUser from './DuolingoUser'
+import ELLMapsSlide from "./ELLMapsSlide";
+import GlobeSlide from "./GlobeSlide";
+import EnglishInternetDecline from "./EnglishInternetDecline";
 
 
 const slides = [
-  { id: 1, content: 'Intro' },
-  { id: 2, content: 'Intro 2' },
-  { id: 3, content: 'Language Chart' },
-  { id: 4, content: 'Classroom Learning' },
-  { id: 5, content: 'Languages on the Web' },
-  { id: 6, content: 'Duolingo' },
+  { id: 0, content: 'Intro' },
+  { id: 1, content: 'Intro 2' },
+  { id: 2, content: 'Language Chart' },
+  { id: 3, content: 'Classroom Learning' },
+  { id: 4, content: 'Languages on the Web' },
+  { id: 5, content: 'Duolingo' },
+  { id: 6, content: 'ELLMapsSlide'},
+  { id: 7, content: 'MultilingualismSlide'},
+  { id: 8, content: 'EnglishWebDecline'}
   
 
 ]
@@ -27,6 +33,9 @@ const gradients = [
   'bg-gradient-to-br from-purple-500 to-indigo-500',
   'bg-gradient-to-br from-yellow-400 to-red-500',
   'bg-gradient-to-br from-teal-400 to-blue-500',
+  'bg-gradient-to-br from-green-400 to-blue-500',
+  'bg-gradient-to-br from-yellow-400 to-red-500',
+  'bg-gradient-to-br from-pink-500 to-orange-400',
 ]
 
 export default function SnapScroll() {
@@ -86,9 +95,21 @@ export default function SnapScroll() {
             <div className="w-full h-full flex items-center justify-center">
               <DuolingoUser />
             </div>  
-          ) 
+          ) : index === 6 ? (
+            <div className="w-full h-full flex items-center justify-center">
+              <ELLMapsSlide />
+            </div>
+          ) : index === 7 ? (
+            <div className="w-full h-full flex items-center justify-center">
+              <GlobeSlide />
+            </div>
+          ) : index === 8 ? (
+            <div className="w-full h-full flex items-center justify-center">
+              <EnglishInternetDecline />
+            </div>
+          )
 
-          : ( 
+                  : (
             <h2 className="text-4xl font-bold">{slide.content}</h2>
           )}
         </div>
