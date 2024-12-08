@@ -57,14 +57,12 @@ export function createInteractiveGlobe(container, geoDataUrl, dataUrl) {
         'Babbel': 'orange',
     };
 
-    // Create SVG
     const svg = d3.select(container)
         .append("svg")
         .attr("width", width)
         .attr("height", height)
         .style("cursor", "grab");
 
-    // Add the title here
     svg.append("text")
         .attr("x", width / 2)
         .attr("y", 20)
@@ -75,7 +73,7 @@ export function createInteractiveGlobe(container, geoDataUrl, dataUrl) {
         .text("# of Languages Widely Spoken Per Country and Top Countries for Language Learning App Web Traffic");
 
 
-    // Projection and path
+    // projection from default d3
     const projection = d3.geoOrthographic()
         .scale(250) // og 350
         .translate([width / 2, height / 2])
