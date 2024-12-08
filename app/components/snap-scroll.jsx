@@ -3,26 +3,38 @@
 import React, { useRef, useEffect } from 'react'
 import { ChevronDown } from 'lucide-react'
 import LanguageChart from './LanguageChart'
-import IntroSlide from './IntroSlide'
-import IntroSlide2 from './IntroSlide2'
+import IntroSlide from './ImageSlides/IntroSlide'
+import IntroSlide2 from './ImageSlides/IntroSlide2'
 import ClassroomSlide from './ClassroomSlide'
 import TreeMapChart from './TreeMapChart'
 import DuolingoUser from './DuolingoUser'
 import ELLMapsSlide from "./ELLMapsSlide";
 import GlobeSlide from "./GlobeSlide";
 import EnglishInternetDecline from "./EnglishInternetDecline";
+import GoogleTrendsComparison from './GoogleTrendsComparision';
+import RocketSlide from './ImageSlides/RocketSlide';
+import Rise from './ImageSlides/Rise';
 
 
 const slides = [
   { id: 0, content: 'Intro' },
   { id: 1, content: 'Intro 2' },
-  { id: 2, content: 'Language Chart' },
-  { id: 3, content: 'Classroom Learning' },
-  { id: 4, content: 'Languages on the Web' },
-  { id: 5, content: 'Duolingo' },
-  { id: 6, content: 'ELLMapsSlide'},
-  { id: 7, content: 'MultilingualismSlide'},
-  { id: 8, content: 'EnglishWebDecline'}
+  { id: 2, content: 'Classroom Learning' },
+  { id: 3, content: 'Languages on the Web' },
+  { id: 4, content: 'ELLMapsSlide'},
+  { id: 5, content: 'Rocket Slide'},
+  { id: 6, content: 'Rise'},
+  { id: 7, content: 'EnglishWebDecline'},
+  { id: 8, content: 'Google Trend Compare'},
+  { id: 9, content: 'Language Chart' },
+
+  { id: 11, content: 'MultilingualismSlide'},
+
+
+  { id: 10, content: 'Duolingo' },
+
+
+
   
 
 ]
@@ -35,6 +47,8 @@ const gradients = [
   'bg-gradient-to-br from-teal-400 to-blue-500',
   'bg-gradient-to-br from-green-400 to-blue-500',
   'bg-gradient-to-br from-yellow-400 to-red-500',
+  'bg-gradient-to-br from-pink-500 to-orange-400',
+  'bg-gradient-to-br from-pink-500 to-orange-400',
   'bg-gradient-to-br from-pink-500 to-orange-400',
 ]
 
@@ -80,34 +94,45 @@ export default function SnapScroll() {
           ) : index === 1 ? (
             <IntroSlide2/>
           ) : index === 2 ? (
-            <div className="w-full h-full flex items-center justify-center">
-              <LanguageChart />
-            </div>
-          ) : index === 3 ? (
             <ClassroomSlide />
-          ) : index === 4 ? (
+          ) : index === 3 ? (
             <div className="w-full h-full flex items-center justify-center">
               <TreeMapChart />
             </div>
-          ) 
-          
-          : index === 5 ? (
-            <div className="w-full h-full flex items-center justify-center">
-              <DuolingoUser />
-            </div>  
-          ) : index === 6 ? (
+          ) : index === 4 ? (
             <div className="w-full h-full flex items-center justify-center">
               <ELLMapsSlide />
             </div>
-          ) : index === 7 ? (
+          ) : index === 5 ? (
             <div className="w-full h-full flex items-center justify-center">
-              <GlobeSlide />
+              <RocketSlide />
             </div>
-          ) : index === 8 ? (
+          ) : index === 6 ? (
+            <div className="w-full h-full flex items-center justify-center">
+              <Rise />
+            </div>
+          ) : index === 7 ? (
             <div className="w-full h-full flex items-center justify-center">
               <EnglishInternetDecline />
             </div>
-          )
+          ) : index === 8 ? (
+            <div className="w-full h-full flex items-center justify-center">
+              <GoogleTrendsComparison />
+            </div>
+           ) : index === 9 ? (
+            <div className="w-full h-full flex items-center justify-center">
+              <LanguageChart />
+            </div>
+          ) : index === 10 ? (
+            <div className="w-full h-full flex items-center justify-center">
+              <DuolingoUser />
+            </div>  
+          )  : index === 11 ? (
+            <div className="w-full h-full flex items-center justify-center">
+              <GlobeSlide />
+            </div>
+          )  
+
 
                   : (
             <h2 className="text-4xl font-bold">{slide.content}</h2>
