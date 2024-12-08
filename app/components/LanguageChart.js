@@ -93,31 +93,31 @@ const LanguageChart = () => {
           .attr("width", xScale.bandwidth())  // Ensure width stays consistent
           .attr("height", d => chartHeight - yScale(d.Count));
 
-        // Remove old bars
+        // remove old bars
         bars.exit().remove();
 
-        // Update axes
+        // update axes
         xAxis.transition().duration(500).call(d3.axisBottom(xScale));
         yAxis.transition().duration(500).call(d3.axisLeft(yScale));
 
-        // Increase text size for axes after update
+        // increase text size for axes after update
         xAxis.selectAll("text")
           .style("font-size", "14px");
         yAxis.selectAll("text")
           .style("font-size", "14px");
       };
 
-      // Set initial chart to the first year
+      // set initial chart to the first year
       updateChart(years[0]);
 
-      // Update chart on year change
+      // update chart on year change
       dropdown.on("change", function () {
         updateChart(this.value);
       });
 
     }).catch(error => console.error("Error loading data:", error));
 
-    // Cleanup function
+    // cleanup function
     return () => {
       d3.select(chartRef.current).selectAll("*").remove();
     };

@@ -33,7 +33,6 @@ const DuolingoUser = () => {
     const width = chartRef.current.clientWidth - margin.left - margin.right
     const height = 400 - margin.top - margin.bottom
 
-    // Clear existing SVG content
     d3.select(chartRef.current).selectAll("*").remove()
 
     const svg = d3.select(chartRef.current)
@@ -43,7 +42,7 @@ const DuolingoUser = () => {
       .append("g")
       .attr("transform", `translate(${margin.left},${margin.top})`)
 
-    // Set up scales
+    // creating scales
     const xScale = d3.scaleBand()
       .domain(data.map(d => d.year))
       .range([0, width])
@@ -54,11 +53,11 @@ const DuolingoUser = () => {
       .nice()
       .range([height, 0])
 
-    // Create axes
+    // creating axes
     const xAxis = d3.axisBottom(xScale)
     const yAxis = d3.axisLeft(yScale)
 
-    // Append the axes
+    // appending axes
     svg.append("g")
       .attr("class", "x-axis")
       .attr("transform", `translate(0,${height})`)
@@ -76,13 +75,13 @@ const DuolingoUser = () => {
       .selectAll("text")
       .style("font-size", "12px")
 
-    // Line generator
+    // generating the line
     const line = d3.line()
       .x(d => xScale(d.year) + xScale.bandwidth() / 2)
       .y(d => yScale(d.users))
       .curve(d3.curveMonotoneX)
 
-    // Append the line
+    // appending the line
     svg.append("path")
       .datum(data)
       .attr("class", "line")
@@ -91,7 +90,7 @@ const DuolingoUser = () => {
       .attr("stroke-width", 2)
       .attr("d", line)
 
-    // Add dots
+    // dots for the map
     svg.selectAll(".dot")
       .data(data)
       .enter().append("circle")
@@ -101,7 +100,7 @@ const DuolingoUser = () => {
       .attr("r", 4)
       .attr("fill", "steelblue")
 
-    // Add labels for the axes
+    // adding axes labels
     svg.append("text")
       .attr("transform", "rotate(-90)")
       .attr("x", -height / 2)
@@ -117,7 +116,7 @@ const DuolingoUser = () => {
       .attr("class", "axis-label")
       .text("Year (Quarterly)")
 
-    // Add title
+    // creating title
     svg.append("text")
       .attr("x", width / 2)
       .attr("y", -margin.top / 2)
@@ -126,7 +125,7 @@ const DuolingoUser = () => {
       .style("font-weight", "bold")
       .text("Growth in Duolingo Users Over Time (2020-2024)")
 
-    // Add tooltip
+    // tooltip
     const tooltip = d3.select(chartRef.current)
       .append("div")
       .attr("class", "tooltip")
@@ -137,7 +136,7 @@ const DuolingoUser = () => {
       .style("padding", "10px")
       .style("border-radius", "5px")
 
-    // Add hover effects
+    // hover effects
     svg.selectAll(".dot")
       .on("mouseover", (event, d) => {
         tooltip.transition()
@@ -160,8 +159,9 @@ const DuolingoUser = () => {
       <div ref={chartRef} className="w-full max-w-4xl h-[500px]"></div>
       <div className="bg-black bg-opacity-60 p-6 rounded-lg max-w-2xl">
         <p className="text-white text-xl text-center">
-          Data shows the quarterly growth of Duolingo users from 2020 to 2024. This has skyrocketed, especially since
-          the pandemic.
+          The growing trend in the number of monthly users on Duolingo since 2020
+          suggests that there is a growing interest among users in language acquisition 
+          since the pandemic.
         </p>
         <p className="text-white text-sm mt-4 text-center italic">
           Figure 8: Active Monthly Duolingo Users Worldwide
