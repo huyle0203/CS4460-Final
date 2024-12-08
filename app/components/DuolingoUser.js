@@ -158,9 +158,15 @@ const DuolingoUser = () => {
   return (
     <div className="w-full h-full flex flex-col items-center justify-center p-4">
       <div ref={chartRef} className="w-full max-w-4xl h-[500px]"></div>
-      <p className="text-center text-sm mt-4 text-gray-600">
-        Data shows the quarterly growth of Duolingo users from 2020 to 2024.
-      </p>
+      <div className="bg-black bg-opacity-60 p-6 rounded-lg max-w-2xl">
+        <p className="text-white text-xl text-center">
+          Data shows the quarterly growth of Duolingo users from 2020 to 2024. This has skyrocketed, especially since
+          the pandemic.
+        </p>
+        <p className="text-white text-sm mt-4 text-center italic">
+          Figure 8: Active Monthly Duolingo Users Worldwide
+        </p>
+      </div>
     </div>
   )
 }

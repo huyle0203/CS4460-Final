@@ -26,7 +26,7 @@ const ELLMapsSlide = () => {
                 <p className="text-white text-xl text-center">
                     "Brick-and-mortar education is not ineffective. Technology will not replace it.
                     In fact, there is a steady correlation between the supply of English Language Learner (ELL) programs
-                    and the demand of foreign language speakers."
+                    and the demand of foreign language speakers. Nevertheless, technology accelerates language learning."
                 </p>
                 <p className="text-white text-sm mt-4 text-center italic">
                     Figure 4 and Figure 9: Brushing and Linking by State (Scatter Plot or Choropleth)
