@@ -25,7 +25,6 @@ const EnglishInternetDecline = () => {
         const width = chartRef.current.clientWidth - margin.left - margin.right
         const height = 400 - margin.top - margin.bottom
 
-        // Clear existing SVG content
         d3.select(chartRef.current).selectAll('*').remove()
 
         const svg = d3.select(chartRef.current)
@@ -35,7 +34,7 @@ const EnglishInternetDecline = () => {
             .append('g')
             .attr('transform', `translate(${margin.left},${margin.top})`)
 
-        // Scales
+        // creating scales
         const xScale = d3.scaleLinear()
             .domain([1996, 2007])
             .range([0, width])
@@ -44,11 +43,11 @@ const EnglishInternetDecline = () => {
             .domain([0, 100])
             .range([height, 0])
 
-        // Axes
+        // creating axes
         const xAxis = d3.axisBottom(xScale).tickFormat(d3.format('d')).ticks(data.length)
         const yAxis = d3.axisLeft(yScale)
 
-        // Append axes
+        // appending axes
         svg.append('g')
             .attr('transform', `translate(0,${height})`)
             .call(xAxis)
@@ -58,7 +57,7 @@ const EnglishInternetDecline = () => {
 
         svg.append('g').call(yAxis)
 
-        // Line generator
+        // generating lines
         const line = d3.line()
             .x(d => xScale(d.year))
             .y(d => yScale(d.internetUsers))
@@ -67,7 +66,7 @@ const EnglishInternetDecline = () => {
             .x(d => xScale(d.year))
             .y(d => yScale(d.webPages))
 
-        // Append lines
+        // appending lines
         svg.append('path')
             .datum(data)
             .attr('fill', 'none')
@@ -82,7 +81,7 @@ const EnglishInternetDecline = () => {
             .attr('stroke-width', 2)
             .attr('d', line2)
 
-        // Add dots
+        // adding dots
         svg.selectAll('.dot')
             .data(data)
             .enter()
@@ -101,7 +100,7 @@ const EnglishInternetDecline = () => {
             .attr('r', 4)
             .attr('fill', 'orange')
 
-        // Add axis labels
+        // adding axes labels
         svg.append('text')
             .attr('transform', 'rotate(-90)')
             .attr('x', -height / 2)
@@ -117,7 +116,7 @@ const EnglishInternetDecline = () => {
             .attr('class', 'axis-label')
             .text('Year')
 
-        // Add title
+        // creating title
         svg.append('text')
             .attr('x', width / 2)
             .attr('y', -margin.top / 2)
@@ -126,7 +125,7 @@ const EnglishInternetDecline = () => {
             .style('font-weight', 'bold')
             .text('Percentage of Internet Users and Web Pages in English Over Time (1996–2007)')
 
-        // Legend
+        // creating legend
         svg.append('rect').attr('x', width - 120).attr('y', -10).attr('width', 10).attr('height', 10).style('fill', 'steelblue')
         svg.append('text').attr('x', width - 100).attr('y', 0).text('% Internet Users').style('font-size', '12px').attr('alignment-baseline', 'middle')
         svg.append('rect').attr('x', width - 120).attr('y', 10).attr('width', 10).attr('height', 10).style('fill', 'orange')

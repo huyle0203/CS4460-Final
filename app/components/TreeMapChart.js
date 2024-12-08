@@ -104,21 +104,6 @@ const TreeMapChart = () => {
           .attr('fill', (d, i) => colorScale(i))
           .style('stroke', 'white')
           .style('stroke-width', '1px')
-          /*
-          .on('mouseover', (event, d) => {
-            tooltip.style('display', 'block')
-                .html(`<strong>${d.data.name}</strong><br>Share: ${d.data.value}%`)
-          })
-          .on('mousemove', event => {
-            const [x, y] = d3.pointer(event, chartRef.current)
-            tooltip.style('top', `${y + 10}px`)
-                .style('left', `${x + 10}px`)
-          })
-          .on('mouseout', () => {
-            tooltip.style('display', 'none')
-          })
-
-           */
 
       nodes.append('text')
           .attr('x', d => (d.x1 - d.x0) / 2)
