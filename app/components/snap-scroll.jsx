@@ -14,7 +14,13 @@ import EnglishInternetDecline from "./EnglishInternetDecline";
 import GoogleTrendsComparison from './GoogleTrendsComparision';
 import RocketSlide from './ImageSlides/RocketSlide';
 import Rise from './ImageSlides/Rise';
-
+import Future from './ImageSlides/Future';
+import Tech from './ImageSlides/Tech';
+import Motivation from './ImageSlides/Motivation';
+import Meme from './ImageSlides/Meme';
+import MotivationSlide from './MotivationSlide';
+import GraphAge from './GraphAge';
+import GraphTop10 from './GraphTop10';
 
 const slides = [
   { id: 0, content: 'Intro' },
@@ -27,29 +33,37 @@ const slides = [
   { id: 7, content: 'EnglishWebDecline'},
   { id: 8, content: 'Google Trend Compare'},
   { id: 9, content: 'Language Chart' },
-
-  { id: 11, content: 'MultilingualismSlide'},
-
-
   { id: 10, content: 'Duolingo' },
-
-
-
-  
-
+  { id: 11, content: 'GraphAge' },
+  { id: 12, content: 'Meme'},
+  { id: 13, content: 'MultilingualismSlide'},
+  { id: 14, content: 'MotivationSlide'},
+  { id: 15, content: 'Motivation'},
+  { id: 16, content: 'Tech'},
+  { id: 17, content: 'Future'},
+  { id: 18, content: 'GraphTop10'},
 ]
 
 const gradients = [
-  'bg-gradient-to-br from-pink-500 to-orange-400',
-  'bg-gradient-to-br from-green-400 to-blue-500',
-  'bg-gradient-to-br from-purple-500 to-indigo-500',
-  'bg-gradient-to-br from-yellow-400 to-red-500',
+  'bg-gradient-to-br from-red-500 to-orange-400',
+  'bg-gradient-to-br from-orange-400 to-yellow-300',
+  'bg-gradient-to-br from-yellow-300 to-green-400',
+  'bg-gradient-to-br from-green-400 to-teal-400',
   'bg-gradient-to-br from-teal-400 to-blue-500',
-  'bg-gradient-to-br from-green-400 to-blue-500',
-  'bg-gradient-to-br from-yellow-400 to-red-500',
-  'bg-gradient-to-br from-pink-500 to-orange-400',
-  'bg-gradient-to-br from-pink-500 to-orange-400',
-  'bg-gradient-to-br from-pink-500 to-orange-400',
+  'bg-gradient-to-br from-blue-500 to-indigo-500',
+  'bg-gradient-to-br from-indigo-500 to-purple-500',
+  'bg-gradient-to-br from-purple-500 to-pink-500',
+  'bg-gradient-to-br from-pink-500 to-red-500',
+  'bg-gradient-to-br from-red-500 to-orange-400',
+  'bg-gradient-to-br from-orange-400 to-yellow-300',
+  'bg-gradient-to-br from-yellow-300 to-green-400',
+  'bg-gradient-to-br from-green-400 to-teal-400',
+  'bg-gradient-to-br from-teal-400 to-blue-500',
+  'bg-gradient-to-br from-blue-500 to-indigo-500',
+  'bg-gradient-to-br from-indigo-500 to-purple-500',
+  'bg-gradient-to-br from-purple-500 to-pink-500',
+  'bg-gradient-to-br from-pink-500 to-red-500',
+  'bg-gradient-to-br from-red-500 to-orange-400',
 ]
 
 export default function SnapScroll() {
@@ -87,7 +101,7 @@ export default function SnapScroll() {
       {slides.map((slide, index) => (
         <div 
           key={slide.id} 
-          className={`h-screen flex items-center justify-center snap-start ${index !== 0 ? gradients[index % gradients.length] : ''} text-white`}
+          className={`h-screen flex items-center justify-center snap-start ${index !== 0 ? gradients[index] : ''} text-white`}
         >
           {index === 0 ? (
             <IntroSlide />
@@ -127,14 +141,39 @@ export default function SnapScroll() {
             <div className="w-full h-full flex items-center justify-center">
               <DuolingoUser />
             </div>  
-          )  : index === 11 ? (
+          ) : index === 11 ? (
+            <div className="w-full h-full flex items-center justify-center">
+              <GraphAge />
+            </div>
+          ) : index === 12 ? (
+            <div className="w-full h-full flex items-center justify-center">
+              <Meme />
+            </div>
+          ) : index === 13 ? (
             <div className="w-full h-full flex items-center justify-center">
               <GlobeSlide />
             </div>
-          )  
-
-
-                  : (
+          ) : index === 14 ? (
+            <div className="w-full h-full flex items-center justify-center">
+              <GraphTop10 />
+            </div>
+          ) : index === 15 ? (
+            <div className="w-full h-full flex items-center justify-center">
+              <MotivationSlide />
+            </div>
+          ) : index === 16 ? (
+            <div className="w-full h-full flex items-center justify-center">
+              <Motivation />
+            </div>
+          ) : index === 17 ? (
+            <div className="w-full h-full flex items-center justify-center">
+              <Tech />
+            </div>
+          ) : index === 18 ? (
+            <div className="w-full h-full flex items-center justify-center">
+              <Future />
+            </div>
+          ) : (
             <h2 className="text-4xl font-bold">{slide.content}</h2>
           )}
         </div>
