@@ -1,7 +1,7 @@
 'use client'
 
-import React, { useRef, useEffect } from 'react'
-import { ChevronDown } from 'lucide-react'
+import React, { useRef, useEffect, useState } from 'react'
+import { ChevronDown, Volume2, VolumeX } from 'lucide-react'
 import LanguageChart from './LanguageChart'
 import IntroSlide from './ImageSlides/IntroSlide'
 import IntroSlide2 from './ImageSlides/IntroSlide2'
@@ -21,6 +21,8 @@ import Meme from './ImageSlides/Meme';
 import MotivationSlide from './MotivationSlide';
 import GraphAge from './GraphAge';
 import GraphTop10 from './GraphTop10';
+import TeamIntro from './ImageSlides/TeamIntro';
+import Bye from './ImageSlides/Bye';
 
 const slides = [
   { id: 0, content: 'Intro' },
@@ -42,6 +44,8 @@ const slides = [
   { id: 16, content: 'Tech'},
   { id: 17, content: 'Future'},
   { id: 18, content: 'GraphTop10'},
+  { id: 19, content: 'TeamIntro'},
+  { id: 20, content: 'Bye'},
 ]
 
 const gradients = [
@@ -68,6 +72,8 @@ const gradients = [
 
 export default function SnapScroll() {
   const containerRef = useRef(null)
+  const audioRef = useRef(null)
+  const [isPlaying, setIsPlaying] = useState(false)
 
   useEffect(() => {
     const container = containerRef.current
@@ -93,85 +99,138 @@ export default function SnapScroll() {
     }
   }, [])
 
+  useEffect(() => {
+    const audio = audioRef.current
+    if (!audio) return
+
+    audio.volume = 0.5 // Set initial volume to 50%
+
+    if (isPlaying) {
+      audio.play().catch(error => console.error("Audio playback failed:", error))
+    } else {
+      audio.pause()
+    }
+
+    return () => {
+      audio.pause()
+    }
+  }, [isPlaying])
+
+  const toggleAudio = () => {
+    setIsPlaying(!isPlaying)
+  }
+
   return (
     <div 
       ref={containerRef} 
-      className="h-screen overflow-y-scroll snap-y snap-mandatory"
+      className="h-screen overflow-y-scroll snap-y snap-mandatory relative"
     >
+      <audio ref={audioRef} loop>
+        <source src="/duolingoSong.mp3" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
+      <div className="fixed top-4 right-4 z-50 flex items-center">
+  <div className="flex items-center bg-black bg-opacity-50 rounded-full p-1">
+    <span className="text-white text-sm mr-2">
+      Press Play for Immersion
+    </span>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="mr-2">
+      <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+    <button 
+      onClick={toggleAudio} 
+      className="bg-white bg-opacity-50 p-2 rounded-full"
+    >
+      {isPlaying ? (
+        <Volume2 size={24} className="text-white stroke-2 stroke-black" />
+      ) : (
+        <VolumeX size={24} className="text-white stroke-2 stroke-black" />
+      )}
+    </button>
+  </div>
+</div>
       {slides.map((slide, index) => (
         <div 
           key={slide.id} 
           className={`h-screen flex items-center justify-center snap-start ${index !== 0 ? gradients[index] : ''} text-white`}
         >
-          {index === 0 ? (
+          {index === 1 ? (
             <IntroSlide />
-          ) : index === 1 ? (
-            <IntroSlide2/>
           ) : index === 2 ? (
-            <ClassroomSlide />
+            <IntroSlide2/>
           ) : index === 3 ? (
+            <ClassroomSlide />
+          ) : index === 4 ? (
             <div className="w-full h-full flex items-center justify-center">
               <TreeMapChart />
             </div>
-          ) : index === 4 ? (
+          ) : index === 5 ? (
             <div className="w-full h-full flex items-center justify-center">
               <ELLMapsSlide />
             </div>
-          ) : index === 5 ? (
+          ) : index === 6 ? (
             <div className="w-full h-full flex items-center justify-center">
               <RocketSlide />
             </div>
-          ) : index === 6 ? (
+          ) : index === 7 ? (
             <div className="w-full h-full flex items-center justify-center">
               <Rise />
             </div>
-          ) : index === 7 ? (
+          ) : index === 8 ? (
             <div className="w-full h-full flex items-center justify-center">
               <EnglishInternetDecline />
             </div>
-          ) : index === 8 ? (
+          ) : index === 9 ? (
             <div className="w-full h-full flex items-center justify-center">
               <GoogleTrendsComparison />
             </div>
-           ) : index === 9 ? (
+           ) : index === 10 ? (
             <div className="w-full h-full flex items-center justify-center">
               <LanguageChart />
             </div>
-          ) : index === 10 ? (
+          ) : index === 11 ? (
             <div className="w-full h-full flex items-center justify-center">
               <DuolingoUser />
             </div>  
-          ) : index === 11 ? (
+          ) : index === 12 ? (
             <div className="w-full h-full flex items-center justify-center">
               <GraphAge />
             </div>
-          ) : index === 12 ? (
+          ) : index === 13 ? (
             <div className="w-full h-full flex items-center justify-center">
               <Meme />
             </div>
-          ) : index === 13 ? (
+          ) : index === 14 ? (
             <div className="w-full h-full flex items-center justify-center">
               <GlobeSlide />
             </div>
-          ) : index === 14 ? (
+          ) : index === 15 ? (
             <div className="w-full h-full flex items-center justify-center">
               <GraphTop10 />
             </div>
-          ) : index === 15 ? (
+          ) : index === 16 ? (
             <div className="w-full h-full flex items-center justify-center">
               <MotivationSlide />
             </div>
-          ) : index === 16 ? (
+          ) : index === 17 ? (
             <div className="w-full h-full flex items-center justify-center">
               <Motivation />
             </div>
-          ) : index === 17 ? (
+          ) : index === 18 ? (
             <div className="w-full h-full flex items-center justify-center">
               <Tech />
             </div>
-          ) : index === 18 ? (
+          ) : index === 19 ? (
             <div className="w-full h-full flex items-center justify-center">
               <Future />
+            </div>
+          ) : index === 20 ? (
+            <div className="w-full h-full flex items-center justify-center">
+              <Bye />
+            </div>
+          ) : index === 0 ? (
+            <div className="w-full h-full flex items-center justify-center">
+              <TeamIntro />
             </div>
           ) : (
             <h2 className="text-4xl font-bold">{slide.content}</h2>

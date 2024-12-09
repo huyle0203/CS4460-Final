@@ -5,7 +5,7 @@ const GoogleTrendsComparison = () => {
   return (
     <div className="flex flex-col items-center justify-center gap-8 max-w-6xl mx-auto p-8">
       <h2 className="text-2xl font-bold text-white text-center">
-        "Interest in language learning has spiked, particularly during the pandemic, as reflected in search trends."
+        Interest in language learning has spiked, particularly during the pandemic, as reflected in <span className='text-yellow-300'>search trends. </span>
       </h2>
       <div className="flex flex-col md:flex-row gap-8 w-full">
         <div className="flex-1 flex flex-col items-center">

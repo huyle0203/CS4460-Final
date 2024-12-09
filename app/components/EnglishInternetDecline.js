@@ -139,7 +139,7 @@ const EnglishInternetDecline = () => {
             </div>
             <div className="bg-black bg-opacity-60 p-6 rounded-lg max-w-2xl">
                 <p className="text-white text-xl text-center">
-                    "The dominance of English on the internet has been gradually declining as more content becomes available in other languages."
+                    The dominance of English on the internet has been gradually declining as more content becomes available in other languages.
                 </p>
                 <p className="text-white text-sm mt-4 text-center italic">
                     Figure 13: Percentage of Internet Users and Web Pages in English Over Time (1996–2007).

@@ -35,13 +35,13 @@ const ClassroomSlide = () => {
             .attr("width", width + margin.right)
             .attr("height", height + margin.top);
 
-        // Add title
+        // add title
         svg.append("text")
             .attr("x", (width + margin.right) / 2)
             .attr("y", margin.top / 2)
             .attr("text-anchor", "middle")
             .text("Number of Classroom Language Learners by Language (World Wide)")
-            .attr("font-size", "18px")
+            .attr("font-size", "25px")
             .attr("fill", "black")
             .attr("font-weight", "bold");
 
@@ -140,7 +140,7 @@ const ClassroomSlide = () => {
             }
         });
 
-        // Add legend
+        // add legend
         const legend = svg.append("g")
             .attr("transform", `translate(${width + 10}, ${margin.top})`);
 
@@ -166,7 +166,7 @@ const ClassroomSlide = () => {
             <div ref={chartRef} className="relative w-full h-[600px]" />
             <div className="bg-black bg-opacity-60 p-6 rounded-lg max-w-2xl">
                 <p className="text-white text-xl text-center">
-                    "In the past, language learning was confined to traditional classrooms. Currently, English dominates these traditional settings."
+                    In the past, language learning was confined to traditional classrooms. Currently, English dominates these traditional settings.
                 </p>
                 <p className="text-white text-sm mt-4 text-center italic">
                     Figure 14: Number of Classroom Learners by Language

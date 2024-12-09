@@ -75,8 +75,9 @@ const TreeMapChart = () => {
           .attr('x', (treeMapWidth + legendWidth) / 2)
           .attr('y', margin.top / 2)
           .attr('text-anchor', 'middle')
-          .style('font-size', '20px')
+          .style('font-size', '25px')
           .style('fill', 'black')
+          .attr("font-weight", "bold")
           .text('Share of Most Common Languages Spoken on the Web')
 
       const colorScale = d3.scaleOrdinal(d3.schemeTableau10)
@@ -146,7 +147,7 @@ const TreeMapChart = () => {
         <div ref={chartRef} className="relative w-full h-[600px]" />
         <div className="bg-black bg-opacity-60 p-6 rounded-lg max-w-2xl">
           <p className="text-white text-xl text-center">
-            "The internet was once dominated by English due to historical and technological factors. This has shifted as other languages have gained prominence."
+            The internet was once dominated by English due to historical and technological factors. This has shifted as other languages have gained prominence.
           </p>
           <p className="text-white text-sm mt-4 text-center italic">
             Figure 1: Share of Most Common Languages Spoken on the Web

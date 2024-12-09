@@ -10,7 +10,7 @@ const Meme = () => {
       <div className="absolute inset-x-0 bottom-0 flex justify-center pb-8">
         <div className="bg-black bg-opacity-60 p-6 w-full max-w-none text-center">
           <p className="text-white text-2xl sm:text-3xl md:text-4xl max-w-4xl mx-auto">
-            While in the past, people sought to learn languages out of necessity, technology has transformed this into an art of curiosity and cultural exchange
+            While in the past, people sought to learn languages out of necessity, technology has transformed this into an art of <span className='text-yellow-300'> curiosity</span> and <span className='text-yellow-300'> cultural exchange </span>
           </p>
         </div>
       </div>

@@ -30,7 +30,7 @@ const Future = () => {
           <ChevronDown className="w-12 h-12 text-white animate-bounce" />
           <div className="bg-black bg-opacity-60 p-4 md:p-6 max-w-md text-center">
             <p className="text-white text-lg sm:text-xl md:text-2xl">
-              Global educational systems need to evolve to keep pace with these changes.
+              <span className='font-bold text-yellow-300'>Global educational systems need to evolve to keep pace with these changes. </span>
             </p>
           </div>
         </div>

@@ -176,7 +176,7 @@ export function createInteractiveGlobe(container, geoDataUrl, dataUrl) {
                                     Country: name,
                                     Apps: countryApps.App,
                                     Lon: lon,
-                                    Lat: lat, // Save original lon/lat for updates
+                                    Lat: lat, //save original lon/lat for updates
                                     AppCount: appCount
                                 })
                                 .attr("cx", coords[0])
@@ -194,12 +194,12 @@ export function createInteractiveGlobe(container, geoDataUrl, dataUrl) {
                 }
             });
 
-            // Add the horizontal legend
+            // add the horizontal legend
             const legendGroup = svg.append("g")
                 .attr("class", "legend")
                 .attr("transform", `translate(${width - (0.99 * width)}, ${height - 40})`);
 
-// Legend items data
+// legend items data
             const legendData = [
                 { color: "#FF4500", label: "Country is top user of: 3 apps" }, // dark Orange
                 { color: "#FF8C00", label: "Country is top user of: 2 apps" },      // orange
